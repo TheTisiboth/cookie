@@ -1,20 +1,18 @@
-import prisma from "@/lib/prisma"
-import { RecipeComponent } from "./Recipe"
-
+import {
+  LoginLink,
+  RegisterLink,
+} from "@kinde-oss/kinde-auth-nextjs/components"
+import { Button } from "@mui/material"
 export default async function Home() {
-  const recipes = await prisma.recipe.findMany()
-  const user = await prisma.user.findFirst()
-  console.log(recipes)
-  console.log("Recipe loaded")
-
   return (
     <main>
-      <h1>Home</h1>
-      <h2>User</h2>
-      <p>User: {user?.name}</p>
-      {recipes.map((recipe) => (
-        <RecipeComponent key={recipe.id} {...recipe} />
-      ))}
+      <h1>Home page</h1>
+      <Button>
+        <LoginLink>Sign in</LoginLink>
+      </Button>
+      <Button>
+        <RegisterLink>Sign up</RegisterLink>
+      </Button>
     </main>
   )
 }
