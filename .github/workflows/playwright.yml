@@ -1,0 +1,34 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  Run-Playwright-Tests:
+    environment: production
+    name: Run Playwright Tests
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Build site
+        run: npm run build
+      - name: Run Playwright tests
+        run: npm run test
+        env:
+          KINDE_SITE_URL: https://cookie-silk.vercel.app/
+          KINDE_POST_LOGOUT_REDIRECT_URL: https://cookie-silk.vercel.app/
+          KINDE_POST_LOGIN_REDIRECT_URL: https://cookie-silk.vercel.app/
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
