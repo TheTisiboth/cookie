@@ -11,7 +11,6 @@ export const checkUserIsAuthorized = async () => {
   await checkUserLoggedIn()
   const { getPermission, getAccessToken } = getKindeServerSession()
   const token = await getAccessToken()
-  // console.log(token)
   const requiredPermission = await getPermission("recipe:delete")
   if (!requiredPermission?.isGranted) redirect("/")
 }

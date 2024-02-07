@@ -21,3 +21,11 @@ The DB is setup with prisma. Whenever a change is made to the DB schema, run the
 In order to use a GUI to view the DB, run the following command:
 
 `npx prisma studio`
+
+### Testing
+
+- You can run the tests with the command `npm run test`
+
+- You can see the results withnpx the command `playwright show-report`
+
+- You can generate the tests with the command `npx playwright codegen http://localhost:3000`
